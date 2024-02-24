@@ -4,8 +4,11 @@ import './App.css';
 import { Pomodoro } from './components/Pomodoro';
 import { ShortBreak } from './components/ShortBreak';
 import { LongBreak } from './components/LongBreak';
+import { Context } from './contexts/context';
 
 function App() {
+  const context = useContext(Context);
+
   const notificarPomodoro = () => {
     if ('Notification' in window) {
 
@@ -44,21 +47,34 @@ function App() {
   const handleButtonClick = (buttonName: string) => {
     setSelectedButton(buttonName);
     if (buttonName === 'Pomodoro') {
-      setMinutes(25);
+      setMinutes(context.Pomodoro);
       setSeconds(0);
       setIsRunning(false);
     }
     if (buttonName === 'Short_Break') {
-      setMinutes(5);
+      setMinutes(context.ShortBreak);
       setSeconds(0);
       setIsRunning(false);
     }
     if (buttonName === 'Long_Break') {
-      setMinutes(15);
+      setMinutes(context.LongBreak);
       setSeconds(0);
       setIsRunning(false);
     }
   };
+
+  useEffect(() => {
+    if (selectedButton === 'Pomodoro') {
+      setMinutes(context.Pomodoro);
+    } else if (selectedButton === 'Short_Break') {
+      setMinutes(context.ShortBreak);
+    } else if (selectedButton === 'Long_Break') {
+      setMinutes(context.LongBreak);
+    }
+
+    setSeconds(0);
+    setIsRunning(false);
+  }, [context, selectedButton]);
 
   useEffect(() => {
     if (isRunning) {
@@ -74,14 +90,14 @@ function App() {
                     setSelectedButton('Long_Break')
                     clearInterval(timer);
                     setIsRunning(false)
-                    setMinutes(15);
+                    setMinutes(context.LongBreak);
                     setSeconds(0);
                     return 0;
                   } else {
                     setSelectedButton('Short_Break')
                     clearInterval(timer);
                     setIsRunning(false)
-                    setMinutes(5);
+                    setMinutes(context.ShortBreak);
                     setSeconds(0);
                     return 0;
                   }
@@ -90,7 +106,7 @@ function App() {
                   setSelectedButton('Pomodoro')
                   clearInterval(timer);
                   setIsRunning(false)
-                  setMinutes(25);
+                  setMinutes(context.Pomodoro);
                   setSeconds(0);
                   return 0;
                 }
@@ -120,12 +136,60 @@ function App() {
         </div>
       </div>
 
-      {showModal && 
-        <div className='modal'>
-          <div className='modal-content'>
-            <h2>Configurações</h2>
-            <h4>Em breve funcionalidades para mudar o tempo de pausa e pomodoro</h4>
-            <button onClick={() => setShowModal(false)}>Fechar</button>
+      {showModal &&
+        <div className="modal-overlay">
+          <div className='modal'>
+            <div className='modal-content'>
+              <h2>Configurações</h2>
+              <hr />
+              <div className="config">
+                <h4>TIMER</h4>
+                <h5>Time (minutes)</h5>
+                <div className="timers">
+                  <div className="timer">
+                    <label htmlFor="pomodoro">Pomodoro</label>
+                    <input
+                      id="pomodoro"
+                      type="number"
+                      name="pomodoro"
+                      min="1"
+                      max="60"
+                      required
+                      value={String(context.Pomodoro)}
+                      onChange={(e) => context.setPomodoro(parseInt(e.target.value))}
+                    />
+                  </div>
+                  <div className="timer">
+                    <label htmlFor="shortbreak"> Short Break</label>
+                    <input
+                      id="shortbreak"
+                      type="number"
+                      name="shortbreak"
+                      min="1"
+                      max="60"
+                      required
+                      value={String(context.ShortBreak)}
+                      onChange={(e) => context.setShortBreak(parseInt(e.target.value))}
+                    />
+                  </div>
+                  <div className="timer">
+                    <label htmlFor="longbreak">Long Break</label>
+                    <input
+                      id="longbreak"
+                      type="number"
+                      name="longbreak"
+                      min="1"
+                      max="60"
+                      required
+                      value={String(context.LongBreak)}
+                      onChange={(e) => context.setLongBreak(parseInt(e.target.value))}
+                    />
+                  </div>
+
+                </div>
+              </div>
+              <button onClick={() => setShowModal(false)}>Fechar</button>
+            </div>
           </div>
         </div>
       }

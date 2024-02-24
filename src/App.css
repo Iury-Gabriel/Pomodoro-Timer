@@ -12,15 +12,18 @@ body {
 
 
 .Pomodoro {
-    background-color: #BA4949; 
+    background-color: #BA4949;
+    transition: all ease 0.5s;
 }
   
 .Short_Break {
-    background-color: #518A58; 
+    background-color: #518A58;
+    transition: all ease 0.5s;
 }
   
 .Long_Break {
     background-color: #7D53A2; 
+    transition: all ease 0.2s;
 }
 
 .cPomodoro {
@@ -68,6 +71,11 @@ body {
     cursor: pointer;
 }
 
+.modal-overlay {
+    display: flex;
+    justify-content: center;
+}
+
 .modal {
     margin-top: 20px;
     position: fixed;
@@ -76,6 +84,7 @@ body {
     align-items: center;
     color: #000;
     text-align: center;
+    background-color: #000;
 }
   
 .modal-content {
@@ -83,8 +92,8 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 80%; /* Ajuste conforme necessário */
-    height: 250px; /* Ajuste conforme necessário */
+    width: 300px; 
+    height: 350px;
 }
 
 .modal-content button {
@@ -98,6 +107,55 @@ body {
     color: #fff;
     cursor: pointer;
 }
+
+.config {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.config h4 {
+    font-weight: bolder;
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+.config h5 {
+    font-weight: lighter;
+    margin: 0;
+    font-size: 20px;
+    color: #999;
+    margin-top: -10px;
+}
+
+.config .timers {
+    margin-top: 10px;
+    display: flex;
+    align-items: start;
+    gap: 25px;
+}
+
+.config .timer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.config .timer label {
+    margin-top: 5px;
+    margin-left: 3px;
+}
+
+.config .timer input {
+    width: 100%;
+    padding-left: 5px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EFEFEF;
+    outline: none;
+}
   
 
 .container {
@@ -108,7 +166,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 300px;
 }
 
 .elements {
@@ -154,9 +211,8 @@ body {
 @media (min-width: 768px) {
     .App {
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-direction: column;
+        align-items: center;
     }
 
     .container {
@@ -170,5 +226,15 @@ body {
     }
     .rightSide button {
         margin: 20px;
+    }
+}
+
+@media (max-height: 400px) {
+    .button button {
+        height: 50px;
+        margin-bottom: 20px;
+    }
+    .area-buttons {
+        margin-top: 10px;
     }
 }
