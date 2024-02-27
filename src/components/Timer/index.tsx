@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import './styles.css';
 
 type Props = {
@@ -6,7 +5,7 @@ type Props = {
     seconds: number;
 }
 
-export const LongBreak = ({ minutes, seconds }: Props) => {
+export const Timer = ({ minutes, seconds }: Props) => {
 
     return (
         <div>

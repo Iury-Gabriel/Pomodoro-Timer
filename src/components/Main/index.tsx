@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../contexts/context";
-import { Pomodoro } from "../Pomodoro";
-import { ShortBreak } from "../ShortBreak";
-import { LongBreak } from "../LongBreak";
 import { notificarBreak, notificarPomodoro } from "../../helpers";
+import { Timer } from "../Timer";
 
 type Props = {
     selectedButton: string;
@@ -122,9 +120,9 @@ export const Main = ({ selectedButton, setSelectedButton }: Props) => {
                     </button>
                 </div>
                 <div className="timer">
-                    {selectedButton === 'Pomodoro' && <Pomodoro minutes={minutes} seconds={seconds} />}
-                    {selectedButton === 'Short_Break' && <ShortBreak minutes={minutes} seconds={seconds} />}
-                    {selectedButton === 'Long_Break' && <LongBreak minutes={minutes} seconds={seconds} />}
+                    {selectedButton === 'Pomodoro' && <Timer minutes={minutes} seconds={seconds} />}
+                    {selectedButton === 'Short_Break' && <Timer minutes={minutes} seconds={seconds} />}
+                    {selectedButton === 'Long_Break' && <Timer minutes={minutes} seconds={seconds} />}
                 </div>
                 <div className="button">
                     {isRunning ? (
