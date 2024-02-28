@@ -3,6 +3,7 @@ import './App.css';
 import { Header } from './components/Header';
 import { Configs } from './components/Configs';
 import { Main } from './components/Main';
+import { Tasks } from './components/Tasks';
 
 function App() {
 
@@ -20,7 +21,11 @@ function App() {
 
       <Main selectedButton={selectedButton} setSelectedButton={setSelectedButton} />
 
+      <div className="mainTasks">
+        <Tasks />
+      </div>
       
+
     </div>
   );
 }

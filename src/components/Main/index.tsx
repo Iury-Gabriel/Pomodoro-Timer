@@ -49,87 +49,89 @@ export const Main = ({ selectedButton, setSelectedButton }: Props) => {
 
     useEffect(() => {
         if (isRunning) {
-          const timer = setInterval(() => {
-            setSeconds(prevSeconds => {
-              if (prevSeconds === 0) {
-                setMinutes(prevMinutes => {
-                  if (prevMinutes === 0) {
-                    setBreaks(prevBreaks => prevBreaks + 1);
-                    if (selectedButton === 'Pomodoro') {
-                      notificarPomodoro();
-                      if (breaks === 4) {
-                        setSelectedButton('Long_Break')
-                        clearInterval(timer);
-                        setIsRunning(false)
-                        setMinutes(context.LongBreak);
-                        setSeconds(0);
-                        return 0;
-                      } else {
-                        setSelectedButton('Short_Break')
-                        clearInterval(timer);
-                        setIsRunning(false)
-                        setMinutes(context.ShortBreak);
-                        setSeconds(0);
-                        return 0;
-                      }
-                    } else {
-                      notificarBreak();
-                      setSelectedButton('Pomodoro')
-                      clearInterval(timer);
-                      setIsRunning(false)
-                      setMinutes(context.Pomodoro);
-                      setSeconds(0);
-                      return 0;
+            const timer = setInterval(() => {
+                setSeconds(prevSeconds => {
+                    if (prevSeconds === 0) {
+                        setMinutes(prevMinutes => {
+                            if (prevMinutes === 0) {
+                                setBreaks(prevBreaks => prevBreaks + 1);
+                                if (selectedButton === 'Pomodoro') {
+                                    notificarPomodoro();
+                                    if (breaks === 4) {
+                                        setSelectedButton('Long_Break')
+                                        clearInterval(timer);
+                                        setIsRunning(false)
+                                        setMinutes(context.LongBreak);
+                                        setSeconds(0);
+                                        return 0;
+                                    } else {
+                                        setSelectedButton('Short_Break')
+                                        clearInterval(timer);
+                                        setIsRunning(false)
+                                        setMinutes(context.ShortBreak);
+                                        setSeconds(0);
+                                        return 0;
+                                    }
+                                } else {
+                                    notificarBreak();
+                                    setSelectedButton('Pomodoro')
+                                    clearInterval(timer);
+                                    setIsRunning(false)
+                                    setMinutes(context.Pomodoro);
+                                    setSeconds(0);
+                                    return 0;
+                                }
+                            }
+                            return prevMinutes - 1;
+                        });
+                        return 59;
                     }
-                  }
-                  return prevMinutes - 1;
+                    return prevSeconds - 1;
                 });
-                return 59;
-              }
-              return prevSeconds - 1;
-            });
-          }, 1000);
-    
-          return () => clearInterval(timer);
+            }, 1000);
+
+            return () => clearInterval(timer);
         }
-      }, [isRunning]);
+    }, [isRunning]);
 
 
 
     return (
-        <div className='container'>
-            <div className="elements">
-                <div className="area-buttons">
-                    <button
-                        onClick={() => handleButtonClick('Pomodoro')}
-                        className={selectedButton === 'Pomodoro' ? 'active' : 'btn'}
-                    >
-                        Pomodoro
-                    </button>
-                    <button
-                        onClick={() => handleButtonClick('Short_Break')}
-                        className={selectedButton === 'Short_Break' ? 'active' : 'btn'}
-                    >
-                        Pausa
-                    </button>
-                    <button
-                        onClick={() => handleButtonClick('Long_Break')}
-                        className={selectedButton === 'Long_Break' ? 'active' : 'btn'}
-                    >
-                        Pausa longa
-                    </button>
-                </div>
-                <div className="timer">
-                    {selectedButton === 'Pomodoro' && <Timer minutes={minutes} seconds={seconds} />}
-                    {selectedButton === 'Short_Break' && <Timer minutes={minutes} seconds={seconds} />}
-                    {selectedButton === 'Long_Break' && <Timer minutes={minutes} seconds={seconds} />}
-                </div>
-                <div className="button">
-                    {isRunning ? (
-                        <button className={`c${selectedButton}`} onClick={() => setIsRunning(false)}>PAUSAR</button>
-                    ) : (
-                        <button className={`c${selectedButton}`} onClick={() => setIsRunning(true)}>COMEÇAR</button>
-                    )}
+        <div className="areaMain">
+            <div className='container'>
+                <div className="elements">
+                    <div className="area-buttons">
+                        <button
+                            onClick={() => handleButtonClick('Pomodoro')}
+                            className={selectedButton === 'Pomodoro' ? 'active' : 'btn'}
+                        >
+                            Pomodoro
+                        </button>
+                        <button
+                            onClick={() => handleButtonClick('Short_Break')}
+                            className={selectedButton === 'Short_Break' ? 'active' : 'btn'}
+                        >
+                            Pausa
+                        </button>
+                        <button
+                            onClick={() => handleButtonClick('Long_Break')}
+                            className={selectedButton === 'Long_Break' ? 'active' : 'btn'}
+                        >
+                            Pausa longa
+                        </button>
+                    </div>
+                    <div className="timer">
+                        {selectedButton === 'Pomodoro' && <Timer minutes={minutes} seconds={seconds} />}
+                        {selectedButton === 'Short_Break' && <Timer minutes={minutes} seconds={seconds} />}
+                        {selectedButton === 'Long_Break' && <Timer minutes={minutes} seconds={seconds} />}
+                    </div>
+                    <div className="button">
+                        {isRunning ? (
+                            <button className={`c${selectedButton}`} onClick={() => setIsRunning(false)}>PAUSAR</button>
+                        ) : (
+                            <button className={`c${selectedButton}`} onClick={() => setIsRunning(true)}>COMEÇAR</button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
