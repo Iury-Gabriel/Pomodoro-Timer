@@ -28,6 +28,25 @@ export const Tasks = () => {
         }
     }
 
+    const handleEditTask = (id: number, newText: string) => {
+        dispatch({
+            type: 'editText',
+            payload: {
+                id,
+                newText,
+            },
+        });
+    };
+
+    const handleRemoveTask = (id: number) => {
+        dispatch({
+            type: 'remove',
+            payload: {
+                id,
+            },
+        });
+    };
+
     return (
         <div className='tasks'>
             <div className="taskHeader">
@@ -44,14 +63,16 @@ export const Tasks = () => {
             <div className="allTasks">
                 {tasks.map(task => (
                     <Task
-                    key={task.id}
-                    id={task.id}
-                    task={task.text}
-                    done={task.done}
-                    onToggleDone={handleToggleDone}
-                />
+                        key={task.id}
+                        id={task.id}
+                        task={task.text}
+                        done={task.done}
+                        onToggleDone={handleToggleDone}
+                        onEditTask={handleEditTask} // Passa a função de edição
+                        onRemoveTask={handleRemoveTask} // Passa a função de remoção
+                    />
                 ))}
             </div>
         </div>
-    )
+    );
 }
