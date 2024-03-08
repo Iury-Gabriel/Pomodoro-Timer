@@ -44,7 +44,7 @@
 
 .settings {
     position: fixed;
-    top: 1;
+    top: 2;
     bottom: 0;
     right: 0;
     left: 0;
@@ -53,7 +53,7 @@
     align-items: center;
     color: #000;
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 200px;
 }
   
 .settings-content {
@@ -65,16 +65,16 @@
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 100px; 
-    height: 90px;
+    width: 150px; 
+    height: 130px;
 }
 
 .settings-content button {
     margin-top: 10px;
     background-color: #999;
     border: 0;
-    width: 90px;
-    height: 45px;
+    width: 130px;
+    height: 70px;
     border-radius: 5px;
     font-size: 15px;
     color: #fff;
@@ -122,4 +122,10 @@
   
 .edit-modal button:hover {
     background-color: #45a049;
+}
+
+@media (min-width: 600px) {
+    .settings {
+        margin-bottom: 30px;
+    }
 }
